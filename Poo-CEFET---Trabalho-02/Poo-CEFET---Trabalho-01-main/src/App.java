@@ -1,27 +1,21 @@
 import java.util.Scanner;
 
 public class App {
-    public static Gestão gestao = new Gestão();
-    public static Atendimento atendimento = new Atendimento();
-    
-    public static void main(String[] args) throws Exception {
-        init();
-        exibirMenuPrincipal();
+    public static void main(String[] args) {
+        Patio patio = Patio.getInstance();
+        Atendimento atendimento = new Atendimento();
+        init(patio);
+        exibirMenuPrincipal(patio, atendimento);
     }
 
-    public static void init() {
-        // Inicialização com dados de exemplo
-        gestao.Estacionamento = new Vagas[50];
-        gestao.tarifa = 5.0f;
-        gestao.hora = 2.0f;
-        
+    public static void init(Patio patio) {
         // Cadastrar vagas iniciais
         for(int i = 0; i < 10; i++) {
-            gestao.Estacionamento[i] = new Vagas(i+1, Veiculo.Tipo.carro, false, null);
+            patio.adicionarVaga(Veiculo.Tipo.carro);
         }
     }
 
-    public static void exibirMenuPrincipal() {
+    public static void exibirMenuPrincipal(Patio patio, Atendimento atendimento) {
         Scanner sc = new Scanner(System.in);
         int opcao;
         
@@ -35,7 +29,7 @@ public class App {
 
             switch(opcao) {
                 case 1:
-                    gestao.menuGestao();
+                    patio.menuGestao();
                     break;
                 case 2:
                     atendimento.fluxo();
